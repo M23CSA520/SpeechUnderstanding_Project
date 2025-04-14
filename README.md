@@ -43,10 +43,10 @@ Variability in pronunciation and accents.
 Usage : Used for training and evaluating the fine-tuned Wav2Vec 2.0 model.
 
 Common Voice Dataset Statistics:
-Common Voice Train:
+- Common Voice Train:
   - Number of samples: 4361
   - Total audio duration: 5.13 hours
-Common Voice Test:
+- Common Voice Test:
   - Number of samples: 2894
   - Total audio duration: 3.98 hours
     
