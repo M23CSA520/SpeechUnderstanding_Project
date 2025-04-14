@@ -7,22 +7,22 @@ FLEURS (Few-shot LEarning Universal Representations of Speech) - Hindi : A high-
 The project highlights the challenges of working with low-resource languages and evaluates the model's performance using metrics like Word Error Rate (WER) and Character Error Rate (CER) .
 
 # Table of Contents
-Prerequisites
-Installation
-Dataset Description
-Dataset Preparation
-Fine-Tuning the Model
-Evaluation
-Results
-Troubleshooting
-Acknowledgments
-Prerequisites
+1. Prerequisites
+2. Installation
+3. Dataset Description
+4. Dataset Preparation
+5. Fine-Tuning the Model
+6. Evaluation
+7. Results
+8. Acknowledgments
+
+# Prerequisites
 Before running the code, ensure the following:
 
 Python >= 3.8
 A GPU-enabled environment (e.g., Google Colab, local GPU, or cloud services like AWS/GCP).
 Basic knowledge of PyTorch and Hugging Face's transformers library.
-Installation
+# Installation
 Install the required dependencies by running:
 
 !pip install torch transformers datasets evaluate jiwer
@@ -51,7 +51,7 @@ Challenges :
 Limited size compared to high-resource languages like English.
 Requires careful preprocessing to align with the model's input requirements.
 Usage : Used as a supplementary dataset to improve the robustness of the fine-tuned model.
-Dataset Preparation
+# Dataset Preparation
 To prepare the datasets for fine-tuning:
 
 Download :
@@ -70,7 +70,7 @@ def prepare_dataset(batch):
     return batch
 Split :
 Split the datasets into training, validation, and test sets using a ratio like 80%-10%-10%.
-Fine-Tuning the Model
+# Fine-Tuning the Model
 To fine-tune the Wav2Vec 2.0 model, follow these steps:
 
 1. Load Pre-trained Model
