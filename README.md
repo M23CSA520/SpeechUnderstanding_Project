@@ -1,46 +1,41 @@
-# ASR Fine-Tuning with Wav2Vec 2.0 for Hindi ( Low Resource Dataset )
-# Overview
-This project demonstrates fine-tuning the Wav2Vec 2.0 model for speech-to-text tasks in Hindi , a low-resource language. The model is fine-tuned using two publicly available datasets:
+# Low-Resource Speech Recognition with Self-Supervised Learning
 
-Mozilla Common Voice (Hindi Subset) : A crowdsourced dataset containing audio recordings and transcriptions in Hindi.
-FLEURS (Few-shot LEarning Universal Representations of Speech) - Hindi : A high-quality multilingual dataset developed by Google.
-The project highlights the challenges of working with low-resource languages and evaluates the model's performance using metrics like Word Error Rate (WER) and Character Error Rate (CER) .
+This project aims to improve Automatic Speech Recognition (ASR) in low-resource languages using self-supervised learning (SSL) techniques. We fine-tune pre-trained models like Wav2Vec 2.0 and XLS-R on publicly available datasets — Common Voice and FLEURS.
 
-# Table of Contents
-1. [Prerequisites](#prerequisites)
-2. [Installation](#installation)
-3. [Dataset Description](#dataset-description)
-4. [Dataset Preparation](#dataset-preparation)
-5. [Fine-Tuning the Model](#fine-tuning-the-model)
-6. [Evaluation](#evaluation)
-7. [Results](#results)
-8. [Acknowledgments](#acknowledgments)
+## 📚 Datasets Used
 
-# Prerequisites
-Before running the code, ensure the following:
+- **Common Voice** (Mozilla): Open multilingual dataset with community-contributed transcriptions.
+- **FLEURS** (Google): Benchmark multilingual dataset for ASR tasks.
 
-Python >= 3.8
-A GPU-enabled environment (e.g., Google Colab, local GPU, or cloud services like AWS/GCP).
-Basic knowledge of PyTorch and Hugging Face's transformers library.
-# Installation
-Install the required dependencies by running:
+## 🎯 Objectives
 
-!pip install torch transformers datasets evaluate jiwer
+- Improve ASR for underrepresented languages using minimal labeled data.
+- Leverage pre-trained SSL models (Wav2Vec 2.0, XLS-R) via fine-tuning.
+- Apply data augmentation for generalization.
+- Evaluate using WER and CER metrics.
 
-# Dataset Description
-Low-Resource Datasets
-This project leverages two publicly available low-resource datasets for Hindi speech-to-text tasks:
+## 🧠 Methodology
 
-Mozilla Common Voice (Hindi Subset) :
-Description : Mozilla Common Voice is an open-source dataset that provides crowdsourced speech recordings and their transcriptions. The Hindi subset contains audio clips spoken by native and non-native Hindi speakers.
-Features :
-Speech recordings in .mp3 or .wav format.
-Transcriptions in Hindi script.
-Metadata including speaker demographics (e.g., accent, gender).
-Challenges :
-Noisy audio samples due to diverse recording environments.
-Variability in pronunciation and accents.
-Usage : Used for training and evaluating the fine-tuned Wav2Vec 2.0 model.
+1. **Preprocessing**  
+   - Load and resample audio to 16kHz.  
+   - Apply augmentation: time-stretch and pitch shift.
+
+2. **Model**  
+   - Use Hugging Face's `facebook/wav2vec2-base`.  
+   - Train using Connectionist Temporal Classification (CTC) loss.  
+   - Experiment with LoRA (Low-Rank Adaptation) for efficient fine-tuning.
+
+3. **Evaluation**  
+   - Metrics: Word Error Rate (WER) and Character Error Rate (CER).
+
+## 🛠 How to Run
+
+### 1. Install Requirements
+```bash
+pip install transformers datasets torch torchaudio soundfile jiwer librosa peft
+
+### 2. Train on Common Voice or FLEURS
+dset_name = 'C'  # 'C' for Common Voice, 'F' for FLEURS
 
 Common Voice Dataset Statistics:
 - Common Voice Train:
@@ -57,104 +52,35 @@ FLEURS Dataset Statistics:
 - FLEURS Test:
   - Number of samples: 418
   - Total audio duration: 1.34 hours
-    
-FLEURS (Few-shot LEarning Universal Representations of Speech) - Hindi :
-Description : FLEURS is a multilingual speech dataset developed by Google. It includes high-quality speech recordings and transcriptions for over 100 languages, including Hindi.
-Features :
-Clean and high-quality audio recordings.
-Balanced representation of male and female speakers.
-Standardized transcriptions in Hindi script.
-Challenges :
-Limited size compared to high-resource languages like English.
-Requires careful preprocessing to align with the model's input requirements.
-Usage : Used as a supplementary dataset to improve the robustness of the fine-tuned model.
 
-# Dataset Preparation
-To prepare the datasets for fine-tuning:
-
-Download :
-Download the Hindi subset of Common Voice and FLEURS from their respective sources:
-Mozilla Common Voice
-FLEURS Dataset
+### 3. Preprocessing
 Preprocessing :
 Convert audio files to a uniform format (e.g., .wav with a sampling rate of 16 kHz).
 Normalize transcriptions to remove inconsistencies (e.g., extra spaces, punctuation).
-Use the processor to extract audio features and tokenize text labels:
+Use the processor to extract audio features and tokenize text labels.
 
-def prepare_dataset(batch):
-    audio = batch["audio"]
-    batch["input_values"] = processor(audio["array"], sampling_rate=audio["sampling_rate"]).input_values[0]
-    batch["labels"] = processor.tokenizer(batch["text"]).input_ids
-    return batch
-Split :
-Split the datasets into training, validation, and test sets using a ratio like 80%-10%-10%.
+### 4. Evaluate on Pretrained.
 
-# Fine-Tuning the Model
-To fine-tune the Wav2Vec 2.0 model, follow these steps:
+### 5. Fine tune model on CTC
+     - a) Evaluate on Common Voice and Fleurs
+### 6. Fine tune model on LoRA
+     - a) Evaluate on Common Voice and Fleurs
 
-1. Load Pre-trained Model
-Load the pre-trained Wav2Vec 2.0 model and processor:
-pretrained_model = Wav2Vec2ForCTC.from_pretrained(Config.MODEL_NAME).to(device)
-pretrained_model.gradient_checkpointing_enable()
-print(f"Model is on device: {next(pretrained_model.parameters()).device}")
 
-3. Define Training Arguments
-Configure the training arguments using TrainingArguments:
 
-from transformers import TrainingArguments
-
-training_args = TrainingArguments(
-    output_dir="./results",
-    num_train_epochs=3,
-    per_device_train_batch_size=8,
-    per_device_eval_batch_size=8,
-    evaluation_strategy="epoch",
-    logging_dir="./logs",
-    save_steps=500,
-    save_total_limit=2,
-    gradient_checkpointing=True,
-    fp16=True,  # Enable mixed precision training
-    learning_rate=5e-5,
-    warmup_steps=500,
-    weight_decay=0.01,
-)
-3. Create Trainer
-Use the Trainer API for fine-tuning:
-
-from transformers import Trainer, DataCollatorCTCWithPadding
-
-data_collator = DataCollatorCTCWithPadding(processor=processor, padding=True)
-
-trainer = Trainer(
-    model=model,
-    args=training_args,
-    train_dataset=train_dataset,
-    eval_dataset=test_dataset,
-    tokenizer=processor.tokenizer,
-    data_collator=data_collator,
-)
-4. Start Training
-Run the fine-tuning process:
-
-trainer.train()
-Evaluation
-After fine-tuning, evaluate the model using WER and CER metrics:
-
-# Results
-Pre-trained Model Performance
-Word Error Rate (WER) : 1.00
-Character Error Rate (CER) : 1.76
-Observations
-The pre-trained model generates garbled and repetitive predictions, leading to poor performance on Hindi speech-to-text tasks.
 Example:
 Reference : वाराणसी हिंसा: पुलिस की भूमिका संदिग्ध, वायरल हुई तस्वीरें
 Hypothesis : XFPXOFXZXOFXZXZXZXFOPOPUOPSPUXOXOEPZPOPXPRFOEOPEOPXOEROFXOXOF XOEPOFPUPEFOX KBPFOREXPXRXFPROXECROXEPOPXORFOEXEXZXOXZXZXOXZXPOX
 
 
-# Acknowledgments
+## Acknowledgments
 This project is built using the Hugging Face Transformers Library .
 Special thanks to the authors of the Wav2Vec 2.0 paper: Wav2Vec 2.0: A Framework for Self-Supervised Learning of Speech Representations .
 Thanks to the contributors of the Mozilla Common Voice and FLEURS datasets for making them publicly available.
+
+## 👨‍💻 Contributors
+Niket Agrawal (M23CSA520) – m23csa520@iitj.ac.in
+Ritesh Lamba (M23CSA544) – m23csa544@iitj.ac.in
 
 
 
