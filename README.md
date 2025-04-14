@@ -7,14 +7,14 @@ FLEURS (Few-shot LEarning Universal Representations of Speech) - Hindi : A high-
 The project highlights the challenges of working with low-resource languages and evaluates the model's performance using metrics like Word Error Rate (WER) and Character Error Rate (CER) .
 
 # Table of Contents
-1. Prerequisites
-2. Installation
-3. Dataset Description
-4. Dataset Preparation
-5. Fine-Tuning the Model
-6. Evaluation
-7. Results
-8. Acknowledgments
+1. [Prerequisites](#prerequisites)
+2. [Installation](#installation)
+3. [Dataset Description](#dataset-description)
+4. [Dataset Preparation](#dataset-preparation)
+5. [Fine-Tuning the Model](#fine-tuning-the-model)
+6. [Evaluation](#evaluation)
+7. [Results](#results)
+8. [Acknowledgments](#acknowledgments)
 
 # Prerequisites
 Before running the code, ensure the following:
