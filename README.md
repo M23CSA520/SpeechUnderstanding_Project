@@ -81,7 +81,14 @@ Thanks to the contributors of the Mozilla Common Voice and FLEURS datasets for m
 Niket Agrawal (M23CSA520) – m23csa520@iitj.ac.in
 Ritesh Lamba (M23CSA544) – m23csa544@iitj.ac.in
 
+3. Evaluate Model
+The script automatically evaluates:
 
+Pretrained model
+
+Fine-tuned model
+
+LoRA-fine-tuned model
 
 
 
