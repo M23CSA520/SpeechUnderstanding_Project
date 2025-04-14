@@ -66,13 +66,12 @@ Use the processor to extract audio features and tokenize text labels.
 ### 6. Fine tune model on LoRA
      - a) Evaluate on Common Voice and Fleurs
 
-
-
+### 7. Results.
 Example:
 Reference : वाराणसी हिंसा: पुलिस की भूमिका संदिग्ध, वायरल हुई तस्वीरें
 Hypothesis : XFPXOFXZXOFXZXZXZXFOPOPUOPSPUXOXOEPZPOPXPRFOEOPEOPXOEROFXOXOF XOEPOFPUPEFOX KBPFOREXPXRXFPROXECROXEPOPXORFOEXEXZXOXZXZXOXZXPOX
 
-
+##
 ## Acknowledgments
 This project is built using the Hugging Face Transformers Library .
 Special thanks to the authors of the Wav2Vec 2.0 paper: Wav2Vec 2.0: A Framework for Self-Supervised Learning of Speech Representations .
