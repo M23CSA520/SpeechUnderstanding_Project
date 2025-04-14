@@ -1,12 +1,12 @@
-#ASR Fine-Tuning with Wav2Vec 2.0 for Hindi ( Low Resource Dataset )
-#Overview
+# ASR Fine-Tuning with Wav2Vec 2.0 for Hindi ( Low Resource Dataset )
+# Overview
 This project demonstrates fine-tuning the Wav2Vec 2.0 model for speech-to-text tasks in Hindi , a low-resource language. The model is fine-tuned using two publicly available datasets:
 
 Mozilla Common Voice (Hindi Subset) : A crowdsourced dataset containing audio recordings and transcriptions in Hindi.
 FLEURS (Few-shot LEarning Universal Representations of Speech) - Hindi : A high-quality multilingual dataset developed by Google.
 The project highlights the challenges of working with low-resource languages and evaluates the model's performance using metrics like Word Error Rate (WER) and Character Error Rate (CER) .
 
-Table of Contents
+# Table of Contents
 Prerequisites
 Installation
 Dataset Description
@@ -27,7 +27,7 @@ Install the required dependencies by running:
 
 !pip install torch transformers datasets evaluate jiwer
 
-#Dataset Description
+# Dataset Description
 Low-Resource Datasets
 This project leverages two publicly available low-resource datasets for Hindi speech-to-text tasks:
 
@@ -122,7 +122,7 @@ trainer.train()
 Evaluation
 After fine-tuning, evaluate the model using WER and CER metrics:
 
-Results
+# Results
 Pre-trained Model Performance
 Word Error Rate (WER) : 1.00
 Character Error Rate (CER) : 1.76
@@ -133,8 +133,7 @@ Reference : वाराणसी हिंसा: पुलिस की भू
 Hypothesis : XFPXOFXZXOFXZXZXZXFOPOPUOPSPUXOXOEPZPOPXPRFOEOPEOPXOEROFXOXOF XOEPOFPUPEFOX KBPFOREXPXRXFPROXECROXEPOPXORFOEXEXZXOXZXZXOXZXPOX
 
 
-pip install --upgrade transformers
-Acknowledgments
+# Acknowledgments
 This project is built using the Hugging Face Transformers Library .
 Special thanks to the authors of the Wav2Vec 2.0 paper: Wav2Vec 2.0: A Framework for Self-Supervised Learning of Speech Representations .
 Thanks to the contributors of the Mozilla Common Voice and FLEURS datasets for making them publicly available.
