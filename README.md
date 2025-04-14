@@ -71,24 +71,15 @@ Example:
 Reference : वाराणसी हिंसा: पुलिस की भूमिका संदिग्ध, वायरल हुई तस्वीरें
 Hypothesis : XFPXOFXZXOFXZXZXZXFOPOPUOPSPUXOXOEPZPOPXPRFOEOPEOPXOEROFXOXOF XOEPOFPUPEFOX KBPFOREXPXRXFPROXECROXEPOPXORFOEXEXZXOXZXZXOXZXPOX
 
-##
-## Acknowledgments
+
+# Acknowledgments
 This project is built using the Hugging Face Transformers Library .
 Special thanks to the authors of the Wav2Vec 2.0 paper: Wav2Vec 2.0: A Framework for Self-Supervised Learning of Speech Representations .
-Thanks to the contributors of the Mozilla Common Voice and FLEURS datasets for making them publicly available.
+Thanks to the contributors of the Mozilla Common Voice and FLEURS datasets for making them publicly available.##
 
-## 👨‍💻 Contributors
+# 👨‍💻 Contributors
 Niket Agrawal (M23CSA520) – m23csa520@iitj.ac.in
 Ritesh Lamba (M23CSA544) – m23csa544@iitj.ac.in
-
-3. Evaluate Model
-The script automatically evaluates:
-
-Pretrained model
-
-Fine-tuned model
-
-LoRA-fine-tuned model
 
 
 
