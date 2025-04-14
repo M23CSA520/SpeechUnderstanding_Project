@@ -90,7 +90,7 @@ pretrained_model = Wav2Vec2ForCTC.from_pretrained(Config.MODEL_NAME).to(device)
 pretrained_model.gradient_checkpointing_enable()
 print(f"Model is on device: {next(pretrained_model.parameters()).device}")
 
-2. Define Training Arguments
+3. Define Training Arguments
 Configure the training arguments using TrainingArguments:
 
 from transformers import TrainingArguments
