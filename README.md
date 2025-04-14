@@ -49,6 +49,14 @@ Common Voice Dataset Statistics:
 - Common Voice Test:
   - Number of samples: 2894
   - Total audio duration: 3.98 hours
+ 
+FLEURS Dataset Statistics:
+- FLEURS Train:
+  - Number of samples: 2120
+  - Total audio duration: 6.66 hours
+- FLEURS Test:
+  - Number of samples: 418
+  - Total audio duration: 1.34 hours
     
 FLEURS (Few-shot LEarning Universal Representations of Speech) - Hindi :
 Description : FLEURS is a multilingual speech dataset developed by Google. It includes high-quality speech recordings and transcriptions for over 100 languages, including Hindi.
