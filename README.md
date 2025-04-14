@@ -41,6 +41,15 @@ Challenges :
 Noisy audio samples due to diverse recording environments.
 Variability in pronunciation and accents.
 Usage : Used for training and evaluating the fine-tuned Wav2Vec 2.0 model.
+
+Common Voice Dataset Statistics:
+Common Voice Train:
+  - Number of samples: 4361
+  - Total audio duration: 5.13 hours
+Common Voice Test:
+  - Number of samples: 2894
+  - Total audio duration: 3.98 hours
+    
 FLEURS (Few-shot LEarning Universal Representations of Speech) - Hindi :
 Description : FLEURS is a multilingual speech dataset developed by Google. It includes high-quality speech recordings and transcriptions for over 100 languages, including Hindi.
 Features :
@@ -51,6 +60,7 @@ Challenges :
 Limited size compared to high-resource languages like English.
 Requires careful preprocessing to align with the model's input requirements.
 Usage : Used as a supplementary dataset to improve the robustness of the fine-tuned model.
+
 # Dataset Preparation
 To prepare the datasets for fine-tuning:
 
@@ -75,11 +85,10 @@ To fine-tune the Wav2Vec 2.0 model, follow these steps:
 
 1. Load Pre-trained Model
 Load the pre-trained Wav2Vec 2.0 model and processor:
+pretrained_model = Wav2Vec2ForCTC.from_pretrained(Config.MODEL_NAME).to(device)
+pretrained_model.gradient_checkpointing_enable()
+print(f"Model is on device: {next(pretrained_model.parameters()).device}")
 
-from transformers import Wav2Vec2ForCTC, Wav2Vec2Processor
-
-model = Wav2Vec2ForCTC.from_pretrained("facebook/wav2vec2-base")
-processor = Wav2Vec2Processor.from_pretrained("facebook/wav2vec2-base")
 2. Define Training Arguments
 Configure the training arguments using TrainingArguments:
 
